@@ -1,0 +1,10 @@
+---
+- name: my_first_playbook
+  hosts: websevers
+  become: true
+  tasks:
+
+  - name: Install apache httpd
+    apt:
+      name: apache2
+      state: present
