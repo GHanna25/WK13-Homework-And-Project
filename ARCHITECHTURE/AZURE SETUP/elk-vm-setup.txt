@@ -1,0 +1,26 @@
+##ELK STACK VM SETUP
+
+
+##Virtual Net
+- Resource Group: Red_Team_RG
+- Name: ELK_Net
+- Region: Japan East
+
+##Add Vnet Peering
+- (This VNET) Peering link name: Elk-to-Red
+- (Remote VNET) Peering link name: Red-to-ELK
+- Virtual Network: Red_Net1
+
+##Virtual Machine
+- Resource Group: Red_Team_RG
+- VM Name: ELK-VM1
+- Region: Japan East
+- Image: 18.04 LTS
+- Size: Standard_D2s_v3
+- Authentication type: SSH public key
+- Username: sysadmin
+- SSH public key source: use existing key
+
+
+
+

@@ -1,0 +1,102 @@
+# azure-red-team Lab Day 1
+
+## ARCHITECTURE Step 1:
+
+**Description:** This is an architectural overview of  a Red-Team demo cloud infrastructure that includes a jump-box and 4 servers running containers that feed logs to a machine running ELK stack.
+
+- [X] SSH key has no password.
+- [X] Web VMs are created using the same availability set.
+- [X] Web VMs should have 2 GB of RAM.
+- [X] Jump-Box VM only needs 1 GB.
+- [X] All 3 VMs should only have 1 vCPU.
+- [X] All VMs are using the same security group and vnet.
+
+
+Subscription: Azure subscription 1
+Subscription ID: 
+
+
+### Resource Groups:
+
+- Resource Group: Red_Team_RG
+- Region: (Asia Pacific) Australia East
+
+### Virtual Networks
+
+- Virtual Network:Red_Net1
+- Region: (Asia Pacific) Australia East
+- Resource Group: Red_Team_RG
+- Base: 10.0.0.0/16
+- Subnet: 10.0.0.0/24
+
+### Network Security Groups
+
+- Name: Red_SG
+- Region: (Asia Pacific) Australia East
+- Resource Group: Red_Team_RG
+
+
+### Inbound Security Rules
+
+- Name: red-deny-all-inbound
+- Priority: 4096
+- Source: any
+- Port: *
+- Destination: Any
+- Port: *
+- Protocol: *
+- Action: Deny
+
+
+## Virtual Machines:
+**- Virtual Machine Name: red-jump1**
+  - Region: (Asia Pacific) Australia East
+  - Availability Options: No infrastructure redundancy required
+  - Security type: standard
+  - Image: Ubuntu Server 18.04 LTS -Gen2
+  - Size: Standard_B1s - 1vcpu, 1GiB memory
+  - Authentication type: SSH public key
+  - SSH pubic key: ???
+**Networking**
+  - Name: red-jump1-ip
+  - SKU: Basic
+  - Assignment: Static
+  - NIC network security group: Advanced
+  - NIC SG: Red-SG
+**Users**
+- Admin: sysadmin
+- Authentication: Public Key
+
+**- Virtual Machine Name: web-1**
+- Region: (Asia Pacific) Australia East
+- Availability Options: Availability set
+- Availability Set: Red-web-set
+- Security type: standard
+- Image: Ubuntu Server 18.04 LTS -Gen2
+- Size: Standard_B1ms - 1vcpu, 2GiB memory
+- Authentication type: SSH public key
+- SSH pubic key: 
+**Networking**
+- IP: None
+- NIC network security group: Advanced
+- NIC SG: Red-SG
+**Users**
+- Admin: sysadmin
+- Authentication: Public Key
+
+**- Virtual Machine Name: web-2**
+- Region: (Asia Pacific) Australia East
+- Availability Options: Availability set
+- Availability Set: Red-web-set
+- Security type: standard
+- Image: Ubuntu Server 18.04 LTS -Gen2
+- Size: Standard_B1ms - 1vcpu, 2GiB memory
+- Authentication type: SSH public key
+- SSH pubic key: ???
+**Networking**
+- IP: None
+- NIC network security group: Advanced
+- NIC SG: Red-SG
+**Users**
+- Admin: sysadmin
+- Authentication: Public Key

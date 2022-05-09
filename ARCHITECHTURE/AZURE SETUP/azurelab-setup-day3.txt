@@ -1,0 +1,47 @@
+Day 3 Azure Setup
+
+##Load Balancer
+- Basics:
+
+- Resource Group: Red_Team_RG
+- Name: Red_LB
+- Region: Australia East
+- SKU: Basic
+- Type: Public
+- Tier: Regional
+
+- Add Frontend IP Config:
+- Name: Red_LB
+- Public IP: Create New /// Name= Red_LB /// Assignment = Static
+
+- Add Backend Pool:
+- Name: Web-Servers
+- Virtual Network: Red_Net1
+- Associated to: Virtual Machines
+- IP version: IPV4
+- Virtual Machines: Add web1/web2
+
+##Load Balancing Rules
+- Name: Red-Pool
+- IP Version: IPv4
+- Frontend IP address: Red_LB (20.211.169.109)
+- Backend Pool: Web-servers
+- Protocol: TCP
+- Port: 80
+- Backend port: 80
+- Health Probe: Create New >> Name = Red-Probe >> Protocol = TCP >> Port = 80 >> Interval = 5 >> Threshold = 2
+- Session Persistence: Client IP and protocol
+- Floating IP: Disabled
+
+##Inbound Security Rule
+- Source: IP Adresses
+- Source IP: 98.243.81.85
+- Source port Range: any
+- Destination: Service tag
+- Destination service tag: VirtualNetwork
+- Service: Custom
+- Destination port ranges: 80
+- protocol: TCP
+- Action: allow
+- Priority: 4093
+- Name: allow-80-to-LB
