@@ -1,0 +1,326 @@
+# azure-red-team Lab Day 1
+
+## ARCHITECTURE Step 1:
+
+**Description:** This is an architectural overview of  a Red-Team demo cloud infrastructure that includes a jump-box and 4 servers running containers that feed logs to a machine running ELK stack.
+
+- [X] SSH key has no password.
+- [X] Web VMs are created using the same availability set.
+- [X] Web VMs should have 2 GB of RAM.
+- [X] Jump-Box VM only needs 1 GB.
+- [X] All 3 VMs should only have 1 vCPU.
+- [X] All VMs are using the same security group and vnet.
+
+
+Subscription: Azure subscription 1
+Subscription ID: 
+
+
+### Resource Groups:
+
+- Resource Group: Red_Team_RG
+- Region: (Asia Pacific) Australia East
+
+### Virtual Networks
+
+- Virtual Network:Red_Net1
+- Region: (Asia Pacific) Australia East
+- Resource Group: Red_Team_RG
+- Base: 10.0.0.0/16
+- Subnet: 10.0.0.0/24
+
+### Network Security Groups
+
+- Name: Red_SG
+- Region: (Asia Pacific) Australia East
+- Resource Group: Red_Team_RG
+
+
+### Inbound Security Rules
+
+- Name: red-deny-all-inbound
+- Priority: 4096
+- Source: any
+- Port: *
+- Destination: Any
+- Port: *
+- Protocol: *
+- Action: Deny
+
+
+## Virtual Machines:
+**- Virtual Machine Name: red-jump1**
+  - Region: (Asia Pacific) Australia East
+  - Availability Options: No infrastructure redundancy required
+  - Security type: standard
+  - Image: Ubuntu Server 18.04 LTS -Gen2
+  - Size: Standard_B1s - 1vcpu, 1GiB memory
+  - Authentication type: SSH public key
+  - SSH pubic key: ???
+**Networking**
+  - Name: red-jump1-ip
+  - SKU: Basic
+  - Assignment: Static
+  - NIC network security group: Advanced
+  - NIC SG: Red-SG
+**Users**
+- Admin: sysadmin
+- Authentication: Public Key
+
+**- Virtual Machine Name: web-1**
+- Region: (Asia Pacific) Australia East
+- Availability Options: Availability set
+- Availability Set: Red-web-set
+- Security type: standard
+- Image: Ubuntu Server 18.04 LTS -Gen2
+- Size: Standard_B1ms - 1vcpu, 2GiB memory
+- Authentication type: SSH public key
+- SSH pubic key: ???
+**Networking**
+- IP: None
+- NIC network security group: Advanced
+- NIC SG: Red-SG
+**Users**
+- Admin: sysadmin
+- Authentication: Public Key
+
+**- Virtual Machine Name: web-2**
+- Region: (Asia Pacific) Australia East
+- Availability Options: Availability set
+- Availability Set: Red-web-set
+- Security type: standard
+- Image: Ubuntu Server 18.04 LTS -Gen2
+- Size: Standard_B1ms - 1vcpu, 2GiB memory
+- Authentication type: SSH public key
+- SSH pubic key: ???
+**Networking**
+- IP: None
+- NIC network security group: Advanced
+- NIC SG: Red-SG
+**Users**
+- Admin: sysadmin
+- Authentication: Public Key
+
+
+
+# azure-red-team Lab Day 2
+
+## ARCHITECTURE Step 2:
+
+**Description:** This is an architectural overview of  a Red-Team demo cloud infrastructure that includes a jump-box and 4 servers running containers that feed logs to a machine running ELK stack.
+
+- [X] Docker is installed and running on the Jump-box.
+- [X] The cyberxsecurity/ansible Docker container is running on the jump-box.
+- [X] The security group has a rule that allows the jump-box ssh access to the vNet.
+- [X] An ssh key created from inside the Ansible container that has no password.
+- [X] The Web VMs password has been reset using the ssh key from the Ansible container.
+- [X] Ansible is able to make a connection to both Web VMs.
+
+Visit `whatsmyip.org` to determine your public facing IP from the space you will be accessing your cloud environment
+
+```
+whatsmyip.org
+```
+Home Network IP: 98.243.81.85
+
+### Resource Groups:
+
+- Resource Group: Red_Team_RG
+- Region: Australia East
+
+### Virtual Networks
+
+- Virtual Network:Red_Net1
+- Region: Australia East
+- Resource Group: Red_Team_RG
+- Base: 10.0.0.0/16
+- Subnet: 10.0.0.0/24
+
+### Network Security Groups
+
+- Name:Red_SG
+- Region: Australia East
+- Resource Group: Red_Team_RG
+
+
+### Inbound Security Rules
+
+- Name: red-deny-all-inbound
+- Priority: 4096
+- Source: Any
+- Port: *
+- Destination: Any
+- Port: *
+- Protocol: Any
+- Action: Deny
+
+**(NEW)**
+- Name: allow-ssh-home-jump
+- Priority: 4094
+- Source: IP address
+- Port: *
+- Destination: 20.101.81.160
+- Port: 22
+- Protocol: SSH
+- Action: Allow
+
+**(NEW)**
+- Name: 
+- Priority: 4095
+- Source: any
+- Port: *
+- Destination: service tag
+- Destination Service Tag: Virtual Network
+- Port: 22
+- Protocol: SSH
+- Action: Allow
+
+
+## Virtual Machines:
+**- Virtual Machine Name: red-jump1**
+  - Region: Australia East
+  - Availability Options: No infrastructure redundancy required
+  - Security type: standard
+  - Image: Ubuntu Server 18.04 LTS -Gen2
+  - Size: Standard_B1s - 1vcpu, 1GiB memory
+  - Authentication type: SSH public key
+  - SSH pubic key: ???
+**Networking**
+  - Name: red-jum1-ip
+  - Type: Public
+  - IP4: 
+  - SKU: Basic
+  - Assignment: Static
+  - NIC network security group: Advanced
+  - NIC SG: Red-SG1
+**(NEW)**
+  - Type: Private
+  - IP4: 10.0.0.4
+  - Assignment: Static
+
+**Users**
+- Admin: sysadmin
+- Authentication: Public Key
+
+**(NEW)**
+**Applications**
+- Install the following applications:
+> - `docker.io`
+```bash
+sudo apt update
+# sudo su # switch to the root user so you don't have to keep 'sudoing'
+sudo apt install docker.io # Install Docker.io application
+sudo systemctl status docker # Verify Docker service is running
+# sudo systemctl start docker # Execute if service is not running
+sudo docker pull cyberxsecurity/ansible:latest bash
+docker run -ti cyberxsecurity/ansible:latest bash
+exit
+```
+
+**- Virtual Machine Name: web-1**
+- Region: Australia East
+- Availability Options: Availability set
+- Availability Set: Red-web-set
+- Security type: standard
+- Image: Ubuntu Server 18.04 LTS -Gen2
+- Size: Standard_B1ms - 1vcpu, 2GiB memory
+- Authentication type: SSH public key
+- SSH pubic key:
+**Networking**
+- IP: None
+- NIC network security group: Advanced
+- NIC SG: Red_SG
+**Users**
+- Admin: sysadmin
+- Authentication: Public Key
+
+**- Virtual Machine Name: web-2**
+- Region: Australia East
+- Availability Options: Availability set
+- Availability Set: Red-web-set
+- Security type: standard
+- Image: Ubuntu Server 18.04 LTS -Gen2
+- Size: Standard_B1ms - 1vcpu, 2GiB memory
+- Authentication type: SSH public key
+- SSH pubic key: ???
+**Networking**
+- IP: None
+- NIC network security group: Advanced
+- NIC SG: Red_SG
+**Users**
+- Admin: sysadmin
+- Authentication: Public Key
+
+
+##Day 3 Azure Setup
+
+##Load Balancer
+- Basics:
+
+- Resource Group: Red_Team_RG
+- Name: Red_LB
+- Region: Australia East
+- SKU: Basic
+- Type: Public
+- Tier: Regional
+
+- Add Frontend IP Config:
+- Name: Red_LB
+- Public IP: Create New /// Name= Red_LB /// Assignment = Static
+
+- Add Backend Pool:
+- Name: Web-Servers
+- Virtual Network: Red_Net1
+- Associated to: Virtual Machines
+- IP version: IPV4
+- Virtual Machines: Add web1/web2
+
+##Load Balancing Rules
+- Name: Red-Pool
+- IP Version: IPv4
+- Frontend IP address: Red_LB (20.211.169.109)
+- Backend Pool: Web-servers
+- Protocol: TCP
+- Port: 80
+- Backend port: 80
+- Health Probe: Create New >> Name = Red-Probe >> Protocol = TCP >> Port = 80 >> Interval = 5 >> Threshold = 2
+- Session Persistence: Client IP and protocol
+- Floating IP: Disabled
+
+##Inbound Security Rule
+- Source: IP Adresses
+- Source IP: 98.243.81.85
+- Source port Range: any
+- Destination: Service tag
+- Destination service tag: VirtualNetwork
+- Service: Custom
+- Destination port ranges: 80
+- protocol: TCP
+- Action: allow
+- Priority: 4093
+- Name: allow-80-to-LB
+
+
+
+##ELK STACK VM SETUP
+
+
+##Virtual Net
+- Resource Group: Red_Team_RG
+- Name: ELK_Net
+- Region: Japan East
+
+##Add Vnet Peering
+- (This VNET) Peering link name: Elk-to-Red
+- (Remote VNET) Peering link name: Red-to-ELK
+- Virtual Network: Red_Net1
+
+##Virtual Machine
+- Resource Group: Red_Team_RG
+- VM Name: ELK-VM1
+- Region: Japan East
+- Image: 18.04 LTS
+- Size: Standard_D2s_v3
+- Authentication type: SSH public key
+- Username: sysadmin
+- SSH public key source: use existing key
