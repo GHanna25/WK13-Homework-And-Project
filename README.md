@@ -31,11 +31,13 @@ This document contains the following details:
 
 
 **Description of the Topology**
+
 The purpose of this network is to expose a monitored instance of DVWA. Enabling Load-Balancing ensures the applications will be secure while also protecting against potential threats and attacks to the network.This network features a jumpbox which is used for secured external network access. A jumpbox is also used for System Administrating so all admins that perform any tasks must connect to the jumpbox which creates a safer environment. Filebeat records data and log events and sends the information to elasticsearch. Metricbeat records data of the OS and other services that are running on these servers.
 
 
 
 **Access Policies**
+
 The machines on the internal network are not exposed to the public Internet.
 The Jumpbox is the only machine that can accept connections from the internet.
 The only IP that can connect through the jumpbox is my host machinees IP.
@@ -45,6 +47,7 @@ The IP of the jumpbox is 20.213.123.120
 
 
 **ELK Configuration**
+
 Ansible was used to automate all configuration of the machines. No configuring was performed manually. By automating the configuration it simplified our tasks sand saved us time which allowed everything to be much easier than going in and performing these repetitive tasks manually.
 
 The following screenshot shows the result of successfully connecting to the docker.
@@ -53,6 +56,7 @@ The following screenshot shows the result of successfully connecting to the dock
 
 
 **Machines in Use**
+
 
 JUMPBOX - PUBLICLY ACCESSIBLY - PERSONAL IP
 
@@ -66,6 +70,7 @@ ELK-VM - PUBLICLY ACCESSIBLE - 20.89.41.236
 
 
 **Beats**
+
 I have installed the following programs on these machines.
 
 - Filebeat and Metricbeat
@@ -75,6 +80,7 @@ I have installed the following programs on these machines.
 - Metricbeat collects data metrics from the OS and other services that are running. It then takes the stats it collects and ships them to whichever output you specify.
 
 **Using the Playbooks**
+
 in order to use these playbooks you will need to have an ansible node configured before hand.
 
 
