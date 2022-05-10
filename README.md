@@ -74,7 +74,7 @@ I have installed the following programs on these machines.
 
 - Metricbeat collects data metrics from the OS and other services that are running. It then takes the stats it collects and ships them to whichever output you specify.
 
-**Using the Playbooks*
+**Using the Playbooks**
 in order to use these playbooks you will need to have an ansible node configured before hand.
 
 
