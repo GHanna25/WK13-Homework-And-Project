@@ -17,6 +17,17 @@ The scripts and files used to install these programs and architecture are listed
 [docker-playbook](https://github.com/GHanna25/WK13-Homework-And-Project/blob/main/ANSIBLE/Docker/pentestdocker.yml)
 
 
+This document contains the following details:
+- Description of the Topology
+- Access Policies
+- ELK Configuration
+- Beats in Use
+- Machines Being Monitored
+- How to Use the Ansible Build
+
+
+##Description of the Topology
+
 
 
 I have installed the following programs on these machines.
