@@ -46,8 +46,11 @@ The following screenshot shows the result of successfully connecting to the dock
 **Machines in Use**
 
 JUMPBOX - PUBLICLY ACCESSIBLY - PERSONAL IP
+
 WEB-1 VM - NOT PUBLICY ACCESSIBLE - 10.0.0.5
+
 WEB-2 VM - NOT PUBLICY ACCESSIBLE - 10.0.0.6
+
 ELK-VM - PUBLICLY ACCESSIBLE - 20.89.41.236
 
 
