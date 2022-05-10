@@ -26,8 +26,8 @@ This document contains the following details:
 - How to Use the Ansible Build
 
 
-##Description of the Topology
-
+**Description of the Topology**
+The purpose of this network is to expose a monitored instance of DVWA. Enabling Load-Balancing ensures the applications will be secure while also protecting against potential threats and attacks to the network.This network features a jumpbox which is used for secured external network access. A jumpbox is also used for System Administrating so all admins that perform any tasks must connect to the jumpbox which creates a safer environment. Filebeat records data and log events and sends the information to elasticsearch. Metricbeat records data of the OS and other services that are running on these servers.
 
 
 I have installed the following programs on these machines.
