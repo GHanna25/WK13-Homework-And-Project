@@ -17,5 +17,8 @@ I have installed the following programs on these machines.
 
 The scripts and files used to install these programs and architecture are listed below
 
-[Filebeat.yml](https://github.com/GHanna25/WK13-Homework-And-Project/blob/main/ANSIBLE/Filebeat/filebeat.yml)
+[Filebeat-playbook.yml](https://github.com/GHanna25/WK13-Homework-And-Project/blob/main/ANSIBLE/Filebeat/filebeat.yml) 
+[metricbeat-playbook.yml](https://github.com/GHanna25/WK13-Homework-And-Project/blob/main/ANSIBLE/Metric%20Beat/metricbeat.yml)
+[elk-vm-playbook](https://github.com/GHanna25/WK13-Homework-And-Project/blob/main/ANSIBLE/ELK%20Stack/elkvm.yml)
+[docker-playbook](https://github.com/GHanna25/WK13-Homework-And-Project/blob/main/ANSIBLE/Docker/pentestdocker.yml)
 
