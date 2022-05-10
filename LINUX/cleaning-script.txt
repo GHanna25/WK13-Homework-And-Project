@@ -1,0 +1,15 @@
+#/bin/bash
+
+# clean unnecessary files in temp directory
+
+rm -rf /tmp/*
+rm -rf /var/tmp/*
+
+# this task will clear the apt update
+apt clean -y
+
+# this command will clear thumbnails 
+rm -rf /home/sysadmin.cache/thumbnails
+rm -rf /home/instructor.cache/thumbnails
+rm -rf /home/student.cache/thumbnails
+rm -rf /root/.cache/thumbnails

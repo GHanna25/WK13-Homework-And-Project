@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# this command will update the apt service
+apt update -y
+
+# this command performs an upgrade to install newer packages
+apt upgrade -y
+
+# installs new up to date packages and removes old unwanted packages
+apt full-upgrade -y
+
+# removes any unwanted packages
+apt autoremove --purge -y
+
+#bonus perform with a single line of code
+apt update -y && apt upgrade -y && apt full-upgrade -y && apt autoremove --purge -y
+

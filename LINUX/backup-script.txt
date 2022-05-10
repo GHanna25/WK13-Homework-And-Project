@@ -1,0 +1,19 @@
+#/bin/bash
+
+# this command will create a var/backup directory
+mkdir -p /var/backup
+
+# this command will
+tar cvf /var/backup/home.tar /home
+
+# this will move the home.tar file into a date format
+mv /var/backup/home.tar /var/backup/home.01012020.tar
+
+# archives /home and saves it
+tar cvf /var/backup/system.tar /home
+
+# this will list all files and sizes and push the output to a txt file
+ls -lh /var/backup > /var/backup/file_report.text
+
+# shows how much memory you have left. then saves into a txt file
+free -h > /var/backup/disk_report.txt
