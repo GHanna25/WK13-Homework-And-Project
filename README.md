@@ -43,8 +43,15 @@ Ansible was used to automate all configuration of the machines. No configuring w
 The following screenshot shows the result of successfully connecting to the docker.
 [!alt text](![container-connect](https://user-images.githubusercontent.com/97201701/167530310-398db1ed-ea76-4d86-a94b-d4a0ae0afb75.png)
 
+**Machines in Use**
+
+JUMPBOX - PUBLICLY ACCESSIBLY - PERSONAL IP
+WEB-1 VM - NOT PUBLICY ACCESSIBLE - 10.0.0.5
+WEB-2 VM - NOT PUBLICY ACCESSIBLE - 10.0.0.6
+ELK-VM - PUBLICLY ACCESSIBLE - 20.89.41.236
 
 
+**Beats**
 I have installed the following programs on these machines.
 
 - Filebeat and Metricbeat
@@ -52,6 +59,10 @@ I have installed the following programs on these machines.
 - Filebeat is a lightweight shipper that centralizes log data. It also monitors log files, collects log events, and will forward them to Logstash or Elasticsearch.
 
 - Metricbeat collects data metrics from the OS and other services that are running. It then takes the stats it collects and ships them to whichever output you specify.
+
+**Using the Playbooks*
+in order to use these playbooks you will need to have an ansible node configured before hand.
+
 
 
 
