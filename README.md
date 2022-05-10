@@ -7,7 +7,7 @@ All files used in this repository were applied to set up the network below
 
 ![alt text](https://github.com/GHanna25/WK13-Homework-And-Project/blob/main/DIAGRAMS/elk-diagram.png)
 
-I have installed the following programs on these machines
+I have installed the following programs on these machines.
 
 - Filebeat and Metricbeat
 
